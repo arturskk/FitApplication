@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>FitnessArt</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-28600243-4', 'auto');
+        ga('send', 'pageview');
+    </script>
+    
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+    // Parse (or initialize) the current-date variable, and the user ID
+    var dateString = /*[[${dateString}]]*/;
+    if (!dateString || dateString === "") {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var day = date.getDate();
+        if (day < 10) {
+            day = "0" + day;
+        }
+        dateString = year + "-" + month + "-" + day;
+    }
+
+    /** On document load, initialize the datepicker widgets. */
+    $(function () {
+        $("#datepicker-weight").datepicker({
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            todayHighlight: true,
+            todayBtn: "linked"
+        });
+        $("#datepicker-weight").datepicker("setDate", dateString);
+        $("#datepicker-weight").datepicker().on("changeDate", function(e) {
+            window.location.href = "/profile?date=" + this.value;
+        });
+        $("#datepicker-birthdate").datepicker({
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            todayBtn: "linked"
+        });
+    });
+    /*]]>*/
+    </script>
+    
+</head>
+
+<body>
+
+   <div class="container ">
+    <div class="row">
+        
+        
+        <form th:object="${user}" action="/signup/save" method="post">
+  
+            
+            <div class="row">
+                <div class="center-block center-content">
+                    <h2>Create Account</h2>
+                </div>
+            </div>
+             
+            <div class="row padded-bottom">
+                <div class="col-sm-6 leftcolumn">
+                    Username:
+                </div>
+                <div class="col-sm-6 rightcolumn">
+                    <input class="form-control" type="text" th:field="*{email}" maxlength="50" size="50"/>
+                    
+                  
+                </div>
+            </div>
+            
+            <div class="row padded-bottom">
+                <div class="col-sm-6 leftcolumn">
+                    Password:
+                </div>
+                <div class="col-sm-6 rightcolumn">
+                    <input class="form-control" type="password" id="Password" name="Password" />
+                </div>
+            </div>
+            
+            <div class="row padded-bottom">
+                <div class="col-sm-6 leftcolumn">
+                    First Name:
+                </div>
+                <div class="col-sm-6 rightcolumn">
+                    <input class="form-control" type="text" th:field="*{firstName}" maxlength="50" size="50"/>
+                </div>
+            </div>
+            
+            <div class="row padded-bottom">
+                <div class="col-sm-6 leftcolumn">
+                    Last Name:
+                </div>
+                <div class="col-sm-6 rightcolumn">
+                    <input class="form-control" type="text" th:field="*{lastName}" maxlength="50" size="50"/>
+                </div>
+            </div>
+            
+            <div class="row padded-bottom">
+                <div class="col-sm-6 leftcolumn">
+                    Gender:
+                </div>
+                <div class="col-sm-6 rightcolumn">
+                    <div th:each="gen : ${allGenders}">
+                        <label class="radio control-label">
+                            <label class="radio inline">
+                                <input class="radio" type="radio" th:field="*{gender}" th:value="${gen}"/>
+                                <span th:text="${#strings.toLowerCase(gen)}"/>
+                            </label>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="row padded-bottom">
+                <div class="col-sm-6 leftcolumn">
+                    Birthdate:
+                </div>
+                <div class="col-sm-6 rightcolumn">
+                    <input id="datepicker-birthdate" class="datepicker form-control" type="text" th:field="*{birthdate}" maxlength="10" size="10"/>
+                    <span class="add-on glyphicon glyphicon-calendar"></span>
+                </div>
+            </div>
+            
+            <div class="row padded-bottom">
+                <div class="col-sm-6 leftcolumn">
+                
+                    Height:
+                </div>
+                <div class="col-sm-6 rightcolumn">               
+                    <label>
+                          <input class="form-control" type="number" id="heightInCm" th:field="*{heightInCm}"   maxlength="3" size="3"/>
+                    </label>
+                </div>  
+            </div>
+            
+            <div class="row padded-bottom">
+                <div class="col-sm-6 leftcolumn">
+                    Activity Level:
+                </div>
+                <div class="col-sm-6 rightcolumn">
+                    <select class="form-control" th:field="*{activityLevel}">
+                        <option th:each="level : ${allActivityLevels}" th:value="${#strings.replace(#strings.toUpperCase(level), ' ', '_')}" th:text="${level}"></option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="row padded-bottom">
+                <div class="col-sm-6 leftcolumn">
+                    Time Zone:
+                </div>
+                <div class="col-sm-6 rightcolumn">
+                    <select class="form-control" th:field="*{timeZone}">
+                        <option th:each="timeZone : ${allTimeZones}" th:value="${timeZone}" th:text="${timeZone}"></option>
+                    </select>
+                </div>
+            </div>
+        
+            <div class="row ">
+            <div class="center-block center-content" style="width:200px;">
+                    <button class="btn btn-default" type="submit">Create User</button>
+                </div>
+            </div>
+            
+            
+               <table>
+                <tr>
+                   
+                    <td th:if="${#fields.hasErrors('birthdate')}" th:errors="*{birthdate}">Birthday Error</td>
+                </tr>
+                <tr>
+             
+                    <td th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Gender Error</td>
+                </tr>
+                <tr>
+             
+                    <td th:if="${#fields.hasErrors('activityLevel')}" th:errors="*{activityLevel}">activityLevel Error</td>
+                </tr>
+                 <tr>
+             
+                    <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+                </tr>
+                 <tr>
+             
+                    <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">firstName Error</td>
+                </tr>
+                 <tr>
+             
+                    <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName Error</td>
+                </tr>
+                 <tr>
+             
+                    <td th:if="${#fields.hasErrors('timeZone')}" th:errors="*{timeZone}">timeZone Error</td>
+                </tr>
+                
+                <tr>
+                    <td th:if="${#fields.hasErrors('heightInCm')}" th:errors="*{heightInCm}">timeZone Error</td>
+                </tr>
+                <tr>
+             
+                    <td th:if="${error != null}" th:text="${error}">Password can't be empty</td>
+                    
+                </tr>
+            </table>
+            
+            
+            
+            
+            
+            
+      
+        </form>
+        
+        <form id="logoutForm" action="/logout" method="post">
+              
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="javascript:{}" onclick="document.getElementById('logoutForm').submit();">Logout</a></li>
+                </ul>
+                
+                
+            </form>
+           
+ 
+    </div>
+</div> 
+
+   
+</body>
+</html>

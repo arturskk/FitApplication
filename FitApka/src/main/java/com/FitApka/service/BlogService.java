@@ -19,7 +19,8 @@ import com.FitApka.repository.BlogPostRepository;
 
 @Service
 public final class BlogService {
-	
+
+	String s;
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	private final BlogPostToDTO blogPostToDTO;

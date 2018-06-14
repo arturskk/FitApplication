@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import com.FitApka.model.Exercise;
 
 
-public interface ExerciseRepository extends CrudRepository<Exercise, Integer>  {
+public interface ExerciseRepository extends CrudRepository<Exercise, Integer>   {
 
 		@Query("SELECT DISTINCT(exercise.category) FROM Exercise exercise ORDER BY exercise.category")
 	    @Nonnull

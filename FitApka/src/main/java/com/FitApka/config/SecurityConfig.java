@@ -88,16 +88,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }	
 		
 	}
-	
 
-    @Autowired
-    ReportDataService reportDataService;
 
-    @Autowired
-    FitnessUserRepository userRepository;
+	ReportDataService reportDataService;
 
-    @Autowired
-    private FitnessUserToDTO userDTOConverter;
+	FitnessUserRepository userRepository;
+
+	private FitnessUserToDTO userDTOConverter;
 	
 	 public final class LoginListener implements ApplicationListener<InteractiveAuthenticationSuccessEvent> {
 
@@ -106,7 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	            // Retrieve the user
 	            final SpringUserDetails userDetails = (SpringUserDetails) event.getAuthentication().getPrincipal();
 	            final FitnessUserDTO userDTO = userDetails.getUserDTO();
-	            final FitnessUser user = userRepository.findOne(userDTO.getId());
+	            final FitnessUser user = userRepository.findById(userDTO.getId()).orElse(new FitnessUser());
 
 	            // Schedule a ReportData update
 	            final Date lastUpdateDate = new Date(user.getLastUpdatedTime().getTime());
@@ -131,6 +128,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	            .authorizeRequests()
 	                .antMatchers("/favicon.ico").permitAll()
 	                .antMatchers("/static/**").permitAll()
+					.antMatchers("/dobry.xhtml").permitAll()
 	                .antMatchers("/signup/**").permitAll()
 	                .antMatchers("/signup/save").permitAll()
 	                .anyRequest().authenticated()

@@ -1,3 +1,5 @@
+package com.FitApka.test;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNotNull;
@@ -34,7 +36,7 @@ public class ServiceTest extends ConfigTest {
     public void testUserService() {
 		
 
-        final FitnessUserDTO newUser = new FitnessUserDTO(
+        final FitnessUserDTO newUser3 = new FitnessUserDTO(
         		1,
                 FitnessUser.Gender.MALE,
                 new java.sql.Date(new java.util.Date().getTime()),
@@ -50,16 +52,16 @@ public class ServiceTest extends ConfigTest {
                 30
         );
         
-        userService.createUser(newUser, "password");
-        assertEquals(1, userService.findAllUsers().size());
+        userService.createUser(newUser3, "password");
+        assertEquals(3, userService.findAllUsers().size());
         
         final List<FitnessUserDTO> allUsers = userService.findAllUsers();
-        final FitnessUserDTO user = userService.findUser(allUsers.get(0).getId());
+        final FitnessUserDTO user = userService.findUser(allUsers.get(2).getId());
         assertNotNull(user);
 
 
-        assertTrue(userService.verifyPassword(newUser, "password"));
-        assertFalse(userService.verifyPassword(newUser, "wrongPassword"));
+        assertTrue(userService.verifyPassword(user, "password"));
+        assertFalse(userService.verifyPassword(user, "wrongPassword"));
     }
 	
 	

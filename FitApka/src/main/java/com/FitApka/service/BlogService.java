@@ -3,6 +3,7 @@ package com.FitApka.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
@@ -20,7 +21,6 @@ import com.FitApka.repository.BlogPostRepository;
 @Service
 public final class BlogService {
 
-	String s;
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	private final BlogPostToDTO blogPostToDTO;
@@ -60,7 +60,7 @@ public final class BlogService {
 	public final void  editBlogPost(final  @Nonnull BlogPostDTO blogPostDTO)
 	{
 		
-		final BlogPost blogPost =  blogPostRepository.findOne(blogPostDTO.getId());
+		final BlogPost blogPost =  blogPostRepository.findById(blogPostDTO.getId()).orElse(new BlogPost());
 		
 		blogPost.setContent(blogPostDTO.getContent());
 		blogPost.setCategory(blogPostDTO.getCategory());
@@ -110,7 +110,7 @@ public final class BlogService {
 	public final BlogPostDTO ReadPost(Integer id)
 	{
 		
-		BlogPost blogPost = blogPostRepository.findOne(id);
+		BlogPost blogPost = blogPostRepository.findById(id).orElse(new BlogPost());
 		
 		if(blogPost == null)
 		{
@@ -125,7 +125,7 @@ public final class BlogService {
 	
 	public final void DeleteBlogPost(Integer id)
 	{
-		blogPostRepository.delete(id);
+		//blogPostRepository.delete(id);
 		
 		logger.info("Post with id:"+id+ "DELETED");
 		

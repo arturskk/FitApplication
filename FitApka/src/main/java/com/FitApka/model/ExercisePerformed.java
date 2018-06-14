@@ -56,7 +56,7 @@ public class ExercisePerformed {
     public ExercisePerformed() {
     }
 
-    @Nonnull
+  
     public Integer getId() {
         return id;
     }

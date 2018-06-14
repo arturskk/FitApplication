@@ -1,3 +1,5 @@
+package com.FitApka.test;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -68,7 +70,7 @@ public class RepositoryTest extends ConfigTest {
     	 List<FitnessUser> users = new ArrayList<>();
     	 users.add(newUser);
     	 users.add(newUser2);
-    	 fitnessuserRepository.save(users);
+    	 fitnessuserRepository.saveAll(users);
     	 
     	 final Iterable<FitnessUser> retrievedNewUser2 = fitnessuserRepository.findAll();
     	 List<FitnessUser> target = new ArrayList<>();

@@ -47,7 +47,7 @@ public final class ReportDataService {
     private final ExercisePerformedRepository exercisePerformedRepository;
     private final ReportDataRepository reportDataRepository;
     private final ReportDataToDTO reportDataDTOConverter;
-   
+
     @Value("${reportdata.update-delay-in-millis:300000}")
     private long scheduleDelayInMillis;
 
@@ -98,7 +98,7 @@ public final class ReportDataService {
 
     @Nonnull
     public List<ReportDataDTO> findByUser(@Nonnull final Integer userId) {
-        final FitnessUser user = userRepository.findOne(userId);
+        final FitnessUser user = userRepository.findById(userId).orElse(new FitnessUser());
         final List<ReportData> reportData = reportDataRepository.findByUserOrderByDateAsc(user);
         return reportData.stream()
                 .map(reportDataDTOConverter::convert)

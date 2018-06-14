@@ -1,3 +1,5 @@
+package com.FitApka.test;
+
 import java.sql.Connection;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -5,6 +7,7 @@ import javax.sql.DataSource;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +40,7 @@ public abstract class  ConfigTest {
 	
 	@SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
+    @Qualifier("dataSource")
     DataSource dataSource;
 
 

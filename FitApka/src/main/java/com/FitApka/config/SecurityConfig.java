@@ -156,6 +156,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	            final FitnessUserDTO userDTO = userDTOConverter.convert(user);
 	            return (user == null || userDTO == null) ? null : new SpringUserDetails(userDTO, user.getPasswordHash());
 	        });
+	        
 	        daoAuthenticationProvider.setPasswordEncoder(new BCryptPasswordEncoder());
 	        return daoAuthenticationProvider;
 	    }

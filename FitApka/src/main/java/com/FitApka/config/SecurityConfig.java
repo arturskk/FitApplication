@@ -148,6 +148,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        auth.authenticationProvider(buildDaoAuthenticationProvider());
 	    }
 	 	
+	 	
 	 	@Nonnull
 	    private DaoAuthenticationProvider buildDaoAuthenticationProvider() {
 	        final DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
